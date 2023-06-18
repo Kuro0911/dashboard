@@ -1,11 +1,11 @@
 .navbar{
-    height: 8vh;
+    height:8vh;
     background-color: #6f2cf4;
     display: flex;
     align-items: center;
     justify-content: center;
 }
-.content{
+.nav-content{
     width: 80%;
     color:#e8e6e3;
 }
