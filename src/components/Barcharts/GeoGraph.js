@@ -6,7 +6,13 @@ const GeoGraph = ({ geoData }) => {
   let labels = [];
   let number = [];
   geoData.map((e) => {
-    labels.push(e.country);
+    if (e.country === "United States of America") {
+      labels.push("USA");
+    } else if (e.country === "United Arab Emirates") {
+      labels.push("UAE");
+    } else {
+      labels.push(e.country);
+    }
     number.push(e.count);
   });
   Chart.defaults.color = "#e8e6e3";
@@ -23,7 +29,10 @@ const GeoGraph = ({ geoData }) => {
   };
   return (
     <div>
-      <Bar data={data} />
+      <Bar
+        style={{ paddingBottom: 30, paddingLeft: 20, paddingRight: 20 }}
+        data={data}
+      />
     </div>
   );
 };
