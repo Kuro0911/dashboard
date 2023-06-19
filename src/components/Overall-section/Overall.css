@@ -10,7 +10,7 @@
 .overall-left{
     width: 49%;
     height: 100%;
-    background-color: #6f2cf4;
+    background-color:rebeccapurple;
     border-radius: 10px;
 }
 .overall-left-head {
@@ -25,13 +25,32 @@
     flex-direction: column;
 }
 .overall-right-top{
-    height: 48%;
+    height: 49%;
     width: 100%;
-    background-color: rebeccapurple;
+    background-color: #0ea5e9;
     border-radius: 10px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+.overall-right-top-head {
+    margin-top: -0.5em;
+    margin-bottom: 0.5em;
+    height: 4%;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+}
+.overall-right-top-head > h2{
+    margin-left: 2em;
+}
+.overall-right-top-wrap {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
 }
 .overall-right-bottom {
-    height: 48%;
+    height: 49%;
     width: 100%;
     background-color: aquamarine;
     border-radius: 10px;

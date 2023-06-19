@@ -1,11 +1,14 @@
 .navbar{
-    height:8vh;
-    background-color: #6f2cf4;
+    height:2vh;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
+    padding: 1.24em;
 }
 .nav-content{
     width: 80%;
     color:#e8e6e3;
+    letter-spacing: 0.65em;
+    font-family: monospace;
+    font-size: 1rem;
 }

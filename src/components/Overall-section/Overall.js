@@ -1,7 +1,11 @@
 import React from "react";
 import "./Overall.css";
 import data from "../../utils/data-store/MOCK-DATA";
-import GeoGraph from "../Barcharts/GeoGraph";
+import GeoGraph from "../Charts/GeoGraph";
+import RelevancePie from "../Charts/RelevancePie";
+import TopicsPie from "../Charts/TopicsPie";
+import LikelihoodPie from "../Charts/LikelihoodPie";
+import SectorLine from "../Charts/SectorLine";
 export const Overall = () => {
   function getGeographicalData() {
     const countries = {};
@@ -32,8 +36,21 @@ export const Overall = () => {
         <GeoGraph geoData={geoData} />
       </div>
       <div className="overall-right">
-        <div className="overall-right-top">Relevance levels</div>
-        <div className="overall-right-bottom">Likelihood levels</div>
+        <div className="overall-right-top">
+          <div className="overall-right-top-head">
+            <h2>Relevance levels</h2>
+            <h2>Topics Covered</h2>
+            <h2>Likelihood levels</h2>
+          </div>
+          <div className="overall-right-top-wrap">
+            <RelevancePie />
+            <TopicsPie />
+            <LikelihoodPie />
+          </div>
+        </div>
+        <div className="overall-right-bottom">
+          <SectorLine />
+        </div>
       </div>
     </div>
   );
