@@ -1,7 +1,6 @@
 .insights{
-    width: 80%;
-    margin-top: 2em;
-    height: 50vh;
+    width: 85%;
+    margin-top: 2em;    
     border-radius: 10px;
     border: 1px #353846 solid;
     background-color: #6f2cf4;
@@ -14,6 +13,7 @@
 }
 .insight-content-top{
     display: flex;
+    height: 3em;
 }
 .title-head{
     width: 40%;
@@ -34,6 +34,7 @@
     width: 100%;
     height: 90%;
     margin-top: 1em;
+    margin-bottom: 0.75em;
 }
 .insight-data-ele{
     border-bottom: 1px solid #7b7a78;
