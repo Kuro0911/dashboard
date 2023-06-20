@@ -1,8 +1,6 @@
 // ./components/PieChart.js
 import React from "react";
-import Chart from "chart.js/auto";
 import { Pie } from "react-chartjs-2";
-const labels = ["January", "February", "March", "April", "May", "June"];
 const data = {
   labels: ["Go", "Python", "Kotlin", "JavaScript", "R", "Swift"],
   datasets: [

@@ -12,7 +12,7 @@ const labels = [
   "goal",
   "no goal",
 ];
-Chart.defaults.color = "#000";
+
 const data = {
   labels: labels,
   datasets: [
@@ -27,6 +27,9 @@ const data = {
 const options = {
   maintainAspectRatio: false,
   plugins: {
+    datalabels: {
+      color: "red",
+    },
     legend: {
       display: false,
     },

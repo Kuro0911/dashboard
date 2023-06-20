@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./Overall.css";
 import data from "../../utils/data-store/MOCK-DATA";
 import GeoGraph from "../Charts/GeoGraph";
@@ -6,27 +6,19 @@ import RelevancePie from "../Charts/RelevancePie";
 import TopicsPie from "../Charts/TopicsPie";
 import LikelihoodPie from "../Charts/LikelihoodPie";
 import SectorLine from "../Charts/SectorLine";
+import { getGeoData } from "../../utils/api";
 export const Overall = () => {
-  function getGeographicalData() {
-    const countries = {};
-    data.forEach((item) => {
-      const { country } = item;
-      if (country) {
-        if (countries[country]) {
-          countries[country]++;
-        } else {
-          countries[country] = 1;
-        }
-      }
-    });
-    const countByCountry = Object.keys(countries).map((country) => ({
-      country,
-      count: countries[country],
-    }));
+  const [geoData, setGeoData] = useState([]);
+  useEffect(() => {
+    getGeoData()
+      .then((res) => {
+        setGeoData(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  });
 
-    return countByCountry;
-  }
-  let geoData = getGeographicalData();
   return (
     <div className="overall">
       <div className="overall-left">

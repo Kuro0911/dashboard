@@ -1,13 +1,32 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./Insights.css";
 import Pagination from "@mui/material/Pagination";
-import data from "../../utils/data-store/MOCK-DATA";
+import { getData } from "../../utils/api";
 export const Insights = () => {
-  const [page, setPage] = React.useState(1);
+  const [page, setPage] = useState(1);
+  const [data, setData] = useState([]);
   const handleChange = (event, value) => {
     setPage(value);
+    getData(value)
+      .then((res) => {
+        setData(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
   const temp = data.slice(0, 5);
+  useEffect(() => {
+    getData(page)
+      .then((res) => {
+        console.log(res.data);
+        setData(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, [page]);
+
   return (
     <div className="insights">
       <div className="insight-content">
@@ -33,7 +52,7 @@ export const Insights = () => {
             ))}
           </div>
           <Pagination
-            count={10}
+            count={200}
             page={page}
             onChange={handleChange}
             color={"secondary"}

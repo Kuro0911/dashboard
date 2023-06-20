@@ -5,7 +5,7 @@ import { Bar } from "react-chartjs-2";
 const GeoGraph = ({ geoData }) => {
   let labels = [];
   let number = [];
-  geoData.map((e) => {
+  geoData.forEach((e) => {
     if (e.country === "United States of America") {
       labels.push("USA");
     } else if (e.country === "United Arab Emirates") {
@@ -15,7 +15,6 @@ const GeoGraph = ({ geoData }) => {
     }
     number.push(e.count);
   });
-  Chart.defaults.color = "#e8e6e3";
   const data = {
     labels: labels,
     datasets: [
@@ -27,12 +26,17 @@ const GeoGraph = ({ geoData }) => {
       },
     ],
   };
+  const options = {
+    plugins: {
+      maintainAspectRatio: false,
+      datalabels: {
+        color: "#e8e6e3",
+      },
+    },
+  };
   return (
     <div>
-      <Bar
-        style={{ paddingBottom: 30, paddingLeft: 20, paddingRight: 20 }}
-        data={data}
-      />
+      <Bar data={data} options={options} />
     </div>
   );
 };
