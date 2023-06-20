@@ -14,8 +14,6 @@ const LikelihoodPie = ({ likeData }) => {
         cnt.push(e.count);
         colors.push("#" + Math.floor(Math.random() * 16777215).toString(16));
       });
-      console.log(labels);
-      console.log(cnt);
     }
   });
 

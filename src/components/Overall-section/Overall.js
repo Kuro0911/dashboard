@@ -9,6 +9,7 @@ import {
   getGeoData,
   getLikeData,
   getRelData,
+  getSecData,
   getTopicData,
 } from "../../utils/api";
 export const Overall = () => {
@@ -16,6 +17,7 @@ export const Overall = () => {
   const [relData, setRelData] = useState([]);
   const [topicData, setTopicData] = useState([]);
   const [likeData, setLikeData] = useState([]);
+  const [sectorData, setSectorData] = useState([]);
 
   useEffect(() => {
     if (geoData.length === 0) {
@@ -54,6 +56,15 @@ export const Overall = () => {
           console.log(err);
         });
     }
+    if (sectorData.length === 0) {
+      getSecData()
+        .then((res) => {
+          setSectorData(res.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
   });
 
   return (
@@ -78,7 +89,7 @@ export const Overall = () => {
           </div>
         </div>
         <div className="overall-right-bottom">
-          <SectorLine />
+          <SectorLine secData={sectorData} />
         </div>
       </div>
     </div>

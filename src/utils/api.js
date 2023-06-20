@@ -10,6 +10,7 @@ export const GET_GEO_DATA_URL = "/getGeoData";
 export const GET_REL_DATA_URL = "/getRelevanceData";
 export const GET_TOPIC_DATA_URL = "/getTopicData";
 export const GET_LIKE_DATA_URL = "/getLikeData";
+export const GET_SEC_DATA_URL = "/getSecData";
 
 export const getData = (page) => {
   const req = api.get(GET_DATA_URL + page);
@@ -30,5 +31,9 @@ export const getTopicData = () => {
 };
 export const getLikeData = () => {
   const req = api.get(GET_LIKE_DATA_URL);
+  return req;
+};
+export const getSecData = () => {
+  const req = api.get(GET_SEC_DATA_URL);
   return req;
 };
