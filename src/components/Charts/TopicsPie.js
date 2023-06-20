@@ -1,39 +1,54 @@
 // ./components/PieChart.js
-import React from "react";
+import React, { useEffect } from "react";
 import { Pie } from "react-chartjs-2";
 
-const data = {
-  labels: ["Gas", "Oil", "Consumption", "Market"],
-  datasets: [
-    {
-      label: "# of Votes",
-      data: [50, 15, 35],
-      backgroundColor: ["#007D9C", "#244D70", "#D123B3", "#F7E018"],
-      borderColor: [
-        "rgba(255,99,132,1)",
-        "rgba(54, 162, 235, 1)",
-        "rgba(255, 206, 86, 1)",
-        "rgba(75, 192, 192, 1)",
-      ],
-      borderWidth: 1,
-    },
-  ],
-};
-const options = {
-  plugins: {
-    legend: {
-      position: "left",
-      labels: {
-        usePointStyle: true,
-        pointStyle: "circle",
+const TopicsPie = ({ topicData }) => {
+  let labels = [];
+  let cnt = [];
+  let colors = [];
+
+  useEffect(() => {
+    if (topicData.length > 0) {
+      topicData.forEach((e) => {
+        labels.push(e.topic);
+        cnt.push(e.count);
+        colors.push("#" + Math.floor(Math.random() * 16777215).toString(16));
+      });
+    }
+  });
+
+  const data = {
+    labels: labels,
+    datasets: [
+      {
+        label: "# of Votes",
+        data: cnt,
+        backgroundColor: colors,
+        borderColor: colors,
+        borderWidth: 1,
+      },
+    ],
+  };
+  const options = {
+    plugins: {
+      maintainAspectRatio: false,
+      legend: {
+        position: "left",
+        display: false,
       },
     },
-  },
-};
-const TopicsPie = () => {
+  };
   return (
     <div>
-      <Pie style={{ height: 300, width: 250 }} options={options} data={data} />
+      {topicData.length > 0 ? (
+        <Pie
+          style={{ height: 120, width: 120 }}
+          options={options}
+          data={data}
+        />
+      ) : (
+        <></>
+      )}
     </div>
   );
 };

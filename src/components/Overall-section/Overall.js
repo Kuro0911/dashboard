@@ -1,22 +1,59 @@
 import React, { useEffect, useState } from "react";
 import "./Overall.css";
-import data from "../../utils/data-store/MOCK-DATA";
 import GeoGraph from "../Charts/GeoGraph";
 import RelevancePie from "../Charts/RelevancePie";
 import TopicsPie from "../Charts/TopicsPie";
 import LikelihoodPie from "../Charts/LikelihoodPie";
 import SectorLine from "../Charts/SectorLine";
-import { getGeoData } from "../../utils/api";
+import {
+  getGeoData,
+  getLikeData,
+  getRelData,
+  getTopicData,
+} from "../../utils/api";
 export const Overall = () => {
   const [geoData, setGeoData] = useState([]);
+  const [relData, setRelData] = useState([]);
+  const [topicData, setTopicData] = useState([]);
+  const [likeData, setLikeData] = useState([]);
+
   useEffect(() => {
-    getGeoData()
-      .then((res) => {
-        setGeoData(res.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    if (geoData.length === 0) {
+      getGeoData()
+        .then((res) => {
+          setGeoData(res.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+    if (relData.length === 0) {
+      getRelData()
+        .then((res) => {
+          setRelData(res.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+    if (topicData.length === 0) {
+      getTopicData()
+        .then((res) => {
+          setTopicData(res.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+    if (likeData.length === 0) {
+      getLikeData()
+        .then((res) => {
+          setLikeData(res.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
   });
 
   return (
@@ -35,9 +72,9 @@ export const Overall = () => {
             <h2>Likelihood levels</h2>
           </div>
           <div className="overall-right-top-wrap">
-            <RelevancePie />
-            <TopicsPie />
-            <LikelihoodPie />
+            <RelevancePie relData={relData} />
+            <TopicsPie topicData={topicData} />
+            <LikelihoodPie likeData={likeData} />
           </div>
         </div>
         <div className="overall-right-bottom">

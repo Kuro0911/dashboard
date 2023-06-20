@@ -19,7 +19,6 @@ export const Insights = () => {
   useEffect(() => {
     getData(page)
       .then((res) => {
-        console.log(res.data);
         setData(res.data);
       })
       .catch((err) => {
