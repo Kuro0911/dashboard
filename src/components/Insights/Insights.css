@@ -111,6 +111,11 @@
     height: 85%;
     width: 100%;
     overflow: scroll;
+    -ms-overflow-style: none;
+        scrollbar-width: none;
+}
+.filter-modal-body-top::-webkit-scrollbar {
+    display: none;
 }
 .filter-modal-body-top-ele{
     width: 100%;

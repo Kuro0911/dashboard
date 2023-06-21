@@ -1,6 +1,11 @@
 .App {
     display: flex;
     flex-direction: column;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+.App::-webkit-scrollbar {
+    display: none;
 }
 .content-wrap{
     display: flex;
