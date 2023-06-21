@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./Insights.css";
 import Pagination from "@mui/material/Pagination";
-import { getData } from "../../utils/api";
+import { getData, getFilterVal } from "../../utils/api";
 import FilterListIcon from "@mui/icons-material/FilterList";
 import Modal from "@mui/material/Modal";
 import Button from "@mui/material/Button";
@@ -14,7 +14,15 @@ export const Insights = () => {
   const [open, setOpen] = useState(false);
 
   // filter set up
-
+  const [filterData, setFilterData] = useState({
+    years: [],
+    topics: [],
+    sectors: [],
+    regions: [],
+    sources: [],
+    intensities: [],
+    countries: [],
+  });
   const [year, setYear] = useState("");
   const [topic, setTopic] = useState("");
   const [sector, setSector] = useState("");
@@ -44,9 +52,18 @@ export const Insights = () => {
   const handleCountryChange = (e) => {
     setCountry(e.target.value);
   };
+  const handleClear = () => {
+    setYear("");
+    setTopic("");
+    setSector("");
+    setRegion("");
+    setSource("");
+    setIntensity("");
+    setCountry("");
+  };
   const applyFilters = (e) => {
     let filters = {
-      year: year,
+      end_year: year,
       topic: topic,
       sector: sector,
       region: region,
@@ -54,7 +71,15 @@ export const Insights = () => {
       intensity: intensity,
       country: country,
     };
-    console.log(filters);
+    setPage(1);
+    getData(1, filters)
+      .then((res) => {
+        setData(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    handleClose();
   };
   // filter setup over
 
@@ -62,8 +87,17 @@ export const Insights = () => {
   const handleClose = () => setOpen(false);
 
   const handleChange = (event, value) => {
+    let filters = {
+      end_year: year,
+      topic: topic,
+      sector: sector,
+      region: region,
+      source: source,
+      intensity: intensity,
+      country: country,
+    };
     setPage(value);
-    getData(value)
+    getData(value, filters)
       .then((res) => {
         setData(res.data);
       })
@@ -72,15 +106,42 @@ export const Insights = () => {
       });
   };
   useEffect(() => {
-    getData(page)
+    let filters = {
+      end_year: year,
+      topic: topic,
+      sector: sector,
+      region: region,
+      source: source,
+      intensity: intensity,
+      country: country,
+    };
+    getData(page, filters)
       .then((res) => {
         setData(res.data);
       })
       .catch((err) => {
         console.log(err);
       });
-  }, [page]);
-
+    if (filterData["years"].length === 0) {
+      getFilterVal()
+        .then((res) => {
+          setFilterData(res.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  }, [
+    page,
+    filterData,
+    year,
+    topic,
+    sector,
+    region,
+    source,
+    intensity,
+    country,
+  ]);
   return (
     <div className="insights">
       <div className="insight-content">
@@ -128,10 +189,17 @@ export const Insights = () => {
                       sx={{ width: "50%", marginLeft: "2em" }}
                       value={year}
                       onChange={handleYearChange}
+                      MenuProps={{
+                        PaperProps: {
+                          style: {
+                            maxHeight: 200,
+                          },
+                        },
+                      }}
                     >
-                      <MenuItem value={10}>2001</MenuItem>
-                      <MenuItem value={20}>2002</MenuItem>
-                      <MenuItem value={30}>2003</MenuItem>
+                      {filterData["years"].map((e) => (
+                        <MenuItem value={e}>{e}</MenuItem>
+                      ))}
                     </Select>
                   </div>
                   <div className="filter-modal-body-top-ele">
@@ -144,10 +212,17 @@ export const Insights = () => {
                       sx={{ width: "50%", marginLeft: "2em" }}
                       value={topic}
                       onChange={handleTopicChange}
+                      MenuProps={{
+                        PaperProps: {
+                          style: {
+                            maxHeight: 200,
+                          },
+                        },
+                      }}
                     >
-                      <MenuItem value={10}>t 1 </MenuItem>
-                      <MenuItem value={20}>t 2</MenuItem>
-                      <MenuItem value={30}>t 3</MenuItem>
+                      {filterData["topics"].map((e) => (
+                        <MenuItem value={e}>{e}</MenuItem>
+                      ))}
                     </Select>
                   </div>
                   <div className="filter-modal-body-top-ele">
@@ -158,10 +233,17 @@ export const Insights = () => {
                       sx={{ width: "50%", marginLeft: "2em" }}
                       value={sector}
                       onChange={handleSectorChange}
+                      MenuProps={{
+                        PaperProps: {
+                          style: {
+                            maxHeight: 200,
+                          },
+                        },
+                      }}
                     >
-                      <MenuItem value={10}>t 1 </MenuItem>
-                      <MenuItem value={20}>t 2</MenuItem>
-                      <MenuItem value={30}>t 3</MenuItem>
+                      {filterData["sectors"].map((e) => (
+                        <MenuItem value={e}>{e}</MenuItem>
+                      ))}
                     </Select>
                   </div>
                   <div className="filter-modal-body-top-ele">
@@ -172,10 +254,17 @@ export const Insights = () => {
                       sx={{ width: "50%", marginLeft: "2em" }}
                       value={region}
                       onChange={handleRegionChange}
+                      MenuProps={{
+                        PaperProps: {
+                          style: {
+                            maxHeight: 200,
+                          },
+                        },
+                      }}
                     >
-                      <MenuItem value={10}>t 1 </MenuItem>
-                      <MenuItem value={20}>t 2</MenuItem>
-                      <MenuItem value={30}>t 3</MenuItem>
+                      {filterData["regions"].map((e) => (
+                        <MenuItem value={e}>{e}</MenuItem>
+                      ))}
                     </Select>
                   </div>
                   <div className="filter-modal-body-top-ele">
@@ -186,10 +275,18 @@ export const Insights = () => {
                       sx={{ width: "50%", marginLeft: "2em" }}
                       value={source}
                       onChange={handleSourceChange}
+                      MenuProps={{
+                        PaperProps: {
+                          style: {
+                            maxHeight: 200,
+                            maxWidth: 100,
+                          },
+                        },
+                      }}
                     >
-                      <MenuItem value={10}>t 1 </MenuItem>
-                      <MenuItem value={20}>t 2</MenuItem>
-                      <MenuItem value={30}>t 3</MenuItem>
+                      {filterData["sources"].map((e) => (
+                        <MenuItem value={e}>{e}</MenuItem>
+                      ))}
                     </Select>
                   </div>
                   <div className="filter-modal-body-top-ele">
@@ -202,10 +299,17 @@ export const Insights = () => {
                       sx={{ width: "50%", marginLeft: "2em" }}
                       value={intensity}
                       onChange={handleIntensityChange}
+                      MenuProps={{
+                        PaperProps: {
+                          style: {
+                            maxHeight: 200,
+                          },
+                        },
+                      }}
                     >
-                      <MenuItem value={10}>t 1 </MenuItem>
-                      <MenuItem value={20}>t 2</MenuItem>
-                      <MenuItem value={30}>t 3</MenuItem>
+                      {filterData["intensities"].map((e) => (
+                        <MenuItem value={e}>{e}</MenuItem>
+                      ))}
                     </Select>
                   </div>
                   <div className="filter-modal-body-top-ele">
@@ -216,10 +320,17 @@ export const Insights = () => {
                       sx={{ width: "50%", marginLeft: "2em" }}
                       value={country}
                       onChange={handleCountryChange}
+                      MenuProps={{
+                        PaperProps: {
+                          style: {
+                            maxHeight: 200,
+                          },
+                        },
+                      }}
                     >
-                      <MenuItem value={10}>t 1 </MenuItem>
-                      <MenuItem value={20}>t 2</MenuItem>
-                      <MenuItem value={30}>t 3</MenuItem>
+                      {filterData["countries"].map((e) => (
+                        <MenuItem value={e}>{e}</MenuItem>
+                      ))}
                     </Select>
                   </div>
                 </div>
@@ -239,6 +350,23 @@ export const Insights = () => {
                     onClick={applyFilters}
                   >
                     APPLY
+                  </Button>
+                  <Button
+                    sx={{
+                      width: "30%",
+                      color: "black",
+                      fontWeight: "bold",
+                      marginLeft: "5em",
+                      "&:hover": {
+                        backgroundColor: "black",
+                        color: "white",
+                      },
+                    }}
+                    variant="text"
+                    size="large"
+                    onClick={handleClear}
+                  >
+                    clear
                   </Button>
                 </div>
               </div>

@@ -89,12 +89,19 @@
     width: 40%;
     height: 50%;
     border-radius: 20px;
-    padding: 2em;
+    padding: 1em;
+    text-align: center;
 }
-
+.filter-modal-head{
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
 .filter-modal-body {
+    text-align: left;
     display: flex;
     flex-direction: column;
+    align-items: center;
+    justify-content: center;
     height: 80%;
     width: 100%;
 }
@@ -109,6 +116,7 @@
     width: 100%;
     display: flex;
     align-items: center;
+    justify-content: center;
     margin-bottom: 1em;
 }
 .filter-modal-body-top-head {
@@ -134,6 +142,6 @@
     height: 15%;
     width: 100%;
     display: flex;
-    align-items: center;
+    align-items: flex-end;
     justify-content: center;
 }

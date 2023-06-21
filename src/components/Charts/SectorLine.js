@@ -50,7 +50,6 @@ const SectorLine = ({ secData }) => {
       },
     },
   };
-  console.log(data);
   return (
     <div style={{ height: "20vh", margin: "1em" }}>
       {secData.length > 0 ? (
